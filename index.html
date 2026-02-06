@@ -22,7 +22,7 @@
             overflow-x: hidden;
         }
 
-        /* --- TIGHT CUSTOMER-CENTRIC HEADER --- */
+        /* --- HEADER --- */
         nav {
             position: fixed; top: 0; width: 100%; 
             display: flex; justify-content: space-between; align-items: center;
@@ -43,7 +43,7 @@
 
         section { padding: 100px 5% 60px; min-height: 90vh; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; }
 
-        /* --- HOME: THE MASKED GEAR --- */
+        /* --- HOME --- */
         #home { background-color: var(--jet-black); perspective: 1500px; }
         .hero-layout {
             display: flex; align-items: center; justify-content: space-between;
@@ -55,7 +55,7 @@
             -webkit-mask-image: radial-gradient(circle, black 50%, transparent 90%);
             mask-image: radial-gradient(circle, black 50%, transparent 90%);
         }
-        .camera-side img { width: 100%; filter: drop-shadow(0 0 50px rgba(255,255,255,0.1)); }
+        .camera-side img { width: 100%; object-fit: contain; filter: drop-shadow(0 0 50px rgba(255,255,255,0.1)); }
         
         .flash-node {
             position: absolute; top: 15%; right: 30%; width: 5px; height: 5px;
@@ -64,7 +64,6 @@
         }
         @keyframes flashPop { 0%, 90% { opacity: 0; } 92% { opacity: 1; } 100% { opacity: 0; } }
 
-        /* Drone: High-Speed Cinematic Flight */
         .drone-side { 
             width: 240px; position: relative;
             -webkit-mask-image: radial-gradient(circle, black 50%, transparent 90%);
@@ -92,16 +91,18 @@
             to { transform: rotateY(360deg) translateZ(200px); }
         }
 
-        /* --- THE REEL & ROLLING FOCUS --- */
+        /* --- THE REEL --- */
         .reel-track { display: flex; width: calc(260px * 20); animation: scrollReel 30s linear infinite; }
         .reel-track img { width: 240px; height: 160px; margin: 0 10px; object-fit: cover; border-radius: 8px; filter: grayscale(30%); }
         @keyframes scrollReel { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
+        /* --- ROLLING FOCUS --- */
+        .rolling-container { width: 100%; overflow: hidden; padding: 40px 0; }
         .rolling-track { display: flex; width: calc(160px * 10); animation: rollRight 18s linear infinite; }
         .rolling-track img { width: 130px; height: 130px; border-radius: 50%; margin: 0 15px; border: 3px solid var(--gold); object-fit: cover; }
         @keyframes rollRight { from { transform: translateX(-50%); } to { transform: translateX(0); } }
 
-        /* --- CONTACT SECTION --- */
+        /* --- CONTACT --- */
         .contact-grid {
             display: grid; grid-template-columns: 1fr 1fr; gap: 40px;
             width: 100%; max-width: 1100px; background: #080808;
@@ -121,19 +122,60 @@
         .floating-bar { position: fixed; bottom: 25px; right: 25px; display: flex; flex-direction: column; gap: 12px; z-index: 2000; }
         .f-btn { width: 50px; height: 50px; border-radius: 50%; display: flex; justify-content: center; align-items: center; color: white; text-decoration: none; font-size: 20px; }
 
-        /* --- MOBILE RESPONSIVE FIXES --- */
+        /* --- 📱 THE MOBILE OVERHAUL --- */
         @media (max-width: 900px) {
-            nav { height: auto; padding: 10px 5%; flex-direction: column; gap: 10px; }
-            .nav-tabs { gap: 10px; flex-wrap: wrap; justify-content: center; }
-            .nav-tabs a { margin-left: 0; font-size: 0.65rem; }
-            .hero-layout { flex-direction: column; text-align: center; gap: 50px; padding-top: 40px; }
-            .camera-side { width: 80% !important; left: 0 !important; margin: 0 auto; transform: rotateY(0deg); }
-            .drone-side { width: 160px !important; margin: 0 auto; }
-            .contact-grid { grid-template-columns: 1fr; padding: 25px; }
-            .card-revolve-box { width: 160px; height: 240px; }
+            nav { height: auto; padding: 10px 5%; flex-direction: column; }
+            .nav-tabs { width: 100%; justify-content: space-around; margin-top: 10px; border-top: 1px solid #222; padding-top: 10px; }
+            .nav-tabs a { margin: 0; font-size: 0.65rem; }
+
+            section { padding: 80px 5% 40px; min-height: auto; }
+
+            .hero-layout { 
+                flex-direction: column; 
+                gap: 20px; 
+                padding-top: 20px; 
+                overflow: hidden; 
+            }
+
+            /* Fix Stretching */
+            .camera-side { 
+                width: 90% !important; 
+                left: 0 !important; 
+                margin: 0 auto; 
+                transform: rotateY(0deg) !important; /* Flattening for mobile */
+            }
+            .camera-side img { width: 100%; height: auto; }
+
+            .drone-side { 
+                width: 140px !important; 
+                margin: 0 auto; 
+            }
+            /* Smaller flight path for mobile so it stays on screen */
+            @keyframes cinematicFlight {
+                0%, 100% { transform: translate(0, 0); }
+                50% { transform: translate(30px, -30px) rotate(5deg); }
+            }
+
+            /* Rotate images scale down */
+            .card-revolve-box { width: 160px; height: 240px; margin: 20px 0; }
             .card-item { width: 110px; height: 160px; }
-            @keyframes cardCircle { from { transform: rotateY(0deg) translateZ(120px); } to { transform: rotateY(360deg) translateZ(120px); } }
-            @keyframes cinematicFlight { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(20px, -40px); } }
+            @keyframes cardCircle { 
+                from { transform: rotateY(0deg) translateZ(100px); } 
+                to { transform: rotateY(360deg) translateZ(100px); } 
+            }
+
+            /* Reel & Focus scaling */
+            .reel-track img { width: 180px; height: 120px; }
+            .rolling-track img { width: 100px; height: 100px; }
+
+            /* Contact section stacking */
+            .contact-grid { 
+                grid-template-columns: 1fr; 
+                padding: 20px; 
+                border-radius: 15px;
+            }
+            .info-panel h2 { text-align: center; }
+            .info-card { justify-content: center; }
         }
     </style>
 </head>
@@ -164,7 +206,7 @@
     <div class="hero-layout">
         <div class="camera-side">
             <div class="flash-node"></div>
-            <img src="Camera.jpg" alt="Rohan Giri Gear">
+            <img src="Camera.jpg" alt="Rohan Giri Camera">
         </div>
 
         <div class="card-revolve-box">
