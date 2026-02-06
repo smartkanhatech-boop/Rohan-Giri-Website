@@ -38,7 +38,8 @@
         }
         .brand-text span { font-size: 0.6rem; letter-spacing: 4px; color: #888; text-transform: uppercase; display: block; }
         
-        .nav-tabs a { color: #ccc; text-decoration: none; font-weight: bold; font-size: 0.75rem; text-transform: uppercase; margin-left: 20px; transition: 0.3s; }
+        .nav-tabs { display: flex; gap: 20px; }
+        .nav-tabs a { color: #ccc; text-decoration: none; font-weight: bold; font-size: 0.75rem; text-transform: uppercase; transition: 0.3s; }
         .nav-tabs a:hover { color: var(--gold); }
 
         section { padding: 100px 5% 60px; min-height: 90vh; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; }
@@ -49,13 +50,12 @@
             display: flex; align-items: center; justify-content: space-between;
             width: 100%; max-width: 1400px;
         }
-
         .camera-side { 
             width: 450px; position: relative; left: -80px; transform: rotateY(20deg);
             -webkit-mask-image: radial-gradient(circle, black 50%, transparent 90%);
             mask-image: radial-gradient(circle, black 50%, transparent 90%);
         }
-        .camera-side img { width: 100%; object-fit: contain; filter: drop-shadow(0 0 50px rgba(255,255,255,0.1)); }
+        .camera-side img { width: 100%; object-fit: contain; }
         
         .flash-node {
             position: absolute; top: 15%; right: 30%; width: 5px; height: 5px;
@@ -96,6 +96,28 @@
         .reel-track img { width: 240px; height: 160px; margin: 0 10px; object-fit: cover; border-radius: 8px; filter: grayscale(30%); }
         @keyframes scrollReel { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
+        /* --- EXPERTISE SECTION --- */
+        .expertise-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            width: 100%;
+            max-width: 1200px;
+            margin-top: 40px;
+        }
+        .expertise-card {
+            background: #0a0a0a;
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid #1a1a1a;
+            transition: 0.3s;
+            text-align: left;
+        }
+        .expertise-card:hover { border-color: var(--gold); transform: translateY(-5px); }
+        .expertise-card i { color: var(--accent); font-size: 2rem; margin-bottom: 15px; display: block; }
+        .expertise-card h3 { color: var(--gold); margin: 0 0 10px; font-size: 1.2rem; }
+        .expertise-card p { color: #888; font-size: 0.9rem; line-height: 1.5; }
+
         /* --- ROLLING FOCUS --- */
         .rolling-container { width: 100%; overflow: hidden; padding: 40px 0; }
         .rolling-track { display: flex; width: calc(160px * 10); animation: rollRight 18s linear infinite; }
@@ -122,60 +144,27 @@
         .floating-bar { position: fixed; bottom: 25px; right: 25px; display: flex; flex-direction: column; gap: 12px; z-index: 2000; }
         .f-btn { width: 50px; height: 50px; border-radius: 50%; display: flex; justify-content: center; align-items: center; color: white; text-decoration: none; font-size: 20px; }
 
-        /* --- 📱 THE MOBILE OVERHAUL --- */
+        /* --- MOBILE REFINEMENT --- */
         @media (max-width: 900px) {
             nav { height: auto; padding: 10px 5%; flex-direction: column; }
-            .nav-tabs { width: 100%; justify-content: space-around; margin-top: 10px; border-top: 1px solid #222; padding-top: 10px; }
-            .nav-tabs a { margin: 0; font-size: 0.65rem; }
-
-            section { padding: 80px 5% 40px; min-height: auto; }
-
-            .hero-layout { 
-                flex-direction: column; 
-                gap: 20px; 
-                padding-top: 20px; 
-                overflow: hidden; 
+            .nav-tabs { 
+                width: 100%; 
+                justify-content: center; 
+                gap: 15px; 
+                margin-top: 12px; 
+                border-top: 1px solid #222; 
+                padding-top: 12px; 
             }
-
-            /* Fix Stretching */
-            .camera-side { 
-                width: 90% !important; 
-                left: 0 !important; 
-                margin: 0 auto; 
-                transform: rotateY(0deg) !important; /* Flattening for mobile */
-            }
-            .camera-side img { width: 100%; height: auto; }
-
-            .drone-side { 
-                width: 140px !important; 
-                margin: 0 auto; 
-            }
-            /* Smaller flight path for mobile so it stays on screen */
-            @keyframes cinematicFlight {
-                0%, 100% { transform: translate(0, 0); }
-                50% { transform: translate(30px, -30px) rotate(5deg); }
-            }
-
-            /* Rotate images scale down */
-            .card-revolve-box { width: 160px; height: 240px; margin: 20px 0; }
+            .nav-tabs a { margin: 0; font-size: 0.65rem; padding: 5px; }
+            section { padding: 80px 5% 40px; }
+            .hero-layout { flex-direction: column; text-align: center; gap: 50px; }
+            .camera-side { width: 90% !important; left: 0 !important; margin: 0 auto; transform: rotateY(0deg) !important; }
+            .drone-side { width: 140px !important; margin: 0 auto; }
+            .contact-grid { grid-template-columns: 1fr; }
+            .card-revolve-box { width: 160px; height: 240px; }
             .card-item { width: 110px; height: 160px; }
-            @keyframes cardCircle { 
-                from { transform: rotateY(0deg) translateZ(100px); } 
-                to { transform: rotateY(360deg) translateZ(100px); } 
-            }
-
-            /* Reel & Focus scaling */
-            .reel-track img { width: 180px; height: 120px; }
-            .rolling-track img { width: 100px; height: 100px; }
-
-            /* Contact section stacking */
-            .contact-grid { 
-                grid-template-columns: 1fr; 
-                padding: 20px; 
-                border-radius: 15px;
-            }
-            .info-panel h2 { text-align: center; }
-            .info-card { justify-content: center; }
+            @keyframes cardCircle { from { transform: rotateY(0deg) translateZ(100px); } to { transform: rotateY(360deg) translateZ(100px); } }
+            @keyframes cinematicFlight { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(30px, -30px); } }
         }
     </style>
 </head>
@@ -235,8 +224,43 @@
 </section>
 
 <section id="focus">
-    <h2 style="color: var(--gold); letter-spacing: 4px; margin-bottom: 20px;">CRAFTED WITH PRECISION</h2>
-    <div class="rolling-container">
+    <h2 style="color: var(--gold); letter-spacing: 4px; margin-bottom: 10px;">OUR EXPERTISE</h2>
+    <p style="color: #666; font-size: 0.9rem; margin-bottom: 40px;">Professional precision in every vertical of visual storytelling.</p>
+    
+    <div class="expertise-grid">
+        <div class="expertise-card">
+            <i class="fas fa-video"></i>
+            <h3>Cinematography</h3>
+            <p>Mastering motion, frame rates, and narrative video to create a cinematic look that feels like a big-screen experience.</p>
+        </div>
+        <div class="expertise-card">
+            <i class="fas fa-drone"></i>
+            <h3>Drone & Aerial Imaging</h3>
+            <p>Technical piloting and high-altitude composition to capture breathtaking views and grand perspectives from above.</p>
+        </div>
+        <div class="expertise-card">
+            <i class="fas fa-lightbulb"></i>
+            <h3>Lighting Design</h3>
+            <p>Expertise in shaping natural, studio, and artificial light to create the perfect mood and depth in every frame.</p>
+        </div>
+        <div class="expertise-card">
+            <i class="fas fa-desktop"></i>
+            <h3>Digital Post-Production</h3>
+            <p>Advanced editing, color grading, and retouching to ensure every deliverable meets the highest aesthetic standards.</p>
+        </div>
+        <div class="expertise-card">
+            <i class="fas fa-camera-retro"></i>
+            <h3>Specialized Niche Skills</h3>
+            <p>Genre-specific expertise including artistic posing, macro details, and split-second action timing for weddings and events.</p>
+        </div>
+        <div class="expertise-card">
+            <i class="fas fa-print"></i>
+            <h3>Fine Art Print Production</h3>
+            <p>Translating digital masterpieces into museum-grade physical prints with meticulous color calibration and archival quality.</p>
+        </div>
+    </div>
+
+    <div class="rolling-container" style="margin-top: 50px;">
         <div class="rolling-track">
             <img src="Image 16.jpg"><img src="Image 17.jpg"><img src="Image 18.jpg"><img src="Image 19.jpg"><img src="Image 20.jpg">
             <img src="Image 16.jpg"><img src="Image 17.jpg"><img src="Image 18.jpg"><img src="Image 19.jpg"><img src="Image 20.jpg">
